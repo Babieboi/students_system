@@ -20,35 +20,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-import os
-import dj_database_url
-from pathlib import Path
+SECRET_KEY = 'django-insecure-@#y^1=h**%^beg8_q5wp+_p6@cd5vig0pgg7srve0joy#eu-+^'
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
 
-# 1. SECRET KEY: Get from environment, or use a dummy one for local dev
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-local-development-key-123')
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.56.1']
 
-# 2. DEBUG: True locally, False on Render
-# If 'RENDER' exists in the environment, DEBUG becomes False
-DEBUG = 'RENDER' not in os.environ
-
-# 3. ALLOWED HOSTS: Allow local and your Render URL
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
-
-render_external_hostname = os.environ.get('postgresql://students_system_user:N74WDPrcrQHmB92Sn1hN6szRe5L7G9dQ@dpg-d6i2mdhdrdic73ebq6u0-a.oregon-postgres.render.com/students_system')
-if render_external_hostname:
-    ALLOWED_HOSTS.append(postgresql://students_system_user:N74WDPrcrQHmB92Sn1hN6szRe5L7G9dQ@dpg-d6i2mdhdrdic73ebq6u0-a.oregon-postgres.render.com/students_system)
-
-# 4. DATABASE: Use Render Postgres if available, otherwise use SQLite locally
-DATABASES = {
-    'default': dj_database_url.config(
-        # This is the fallback for your local VS Code environment
-        default=f'sqlite:///{BASE_DIR / "db.sqlite3"}',
-        conn_max_age=600
-    )
-}
 
 # Application definition
 
@@ -64,7 +42,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware'
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -138,6 +115,4 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATIC_URL = 'static/'
